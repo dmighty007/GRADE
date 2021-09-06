@@ -2060,6 +2060,7 @@ vector<vector<double>> calc_F4_all(int count_solvent, int count_solute, vector<v
     for ( int i = topSolute + 1 ; i < topSolute + count_solvent  ; i+=4 )   //Loop over oxygen atoms, starting after solutes.
     {
         each_avg = 0;
+        int count = 0;
         if (My_neigh[i].size() > 0 )                        //If current oxygen has any neighbors, do the following
         {
             for (int j = 1 ; j < My_neigh[i].size() ; j++)      //Loop over all the neighbors of oxygen 'i'.
@@ -2218,6 +2219,7 @@ vector<vector<double>> calc_F4_all(int count_solvent, int count_solute, vector<v
 
                     phi_avg += cos(3*phi);
                     each_avg += cos(3*phi);
+                    count += 1;
                     
                     //Find the angle:(end)----------------------
                     
@@ -2239,7 +2241,9 @@ vector<vector<double>> calc_F4_all(int count_solvent, int count_solute, vector<v
         }
         //cout << "each_avg= " << each_avg/My_neigh[i].size() << "\n\n";
         vector<double> temp;
-        temp.push_back(each_avg/My_neigh[i].size());
+        
+        if(count > 0) temp.push_back(each_avg/count);
+        else temp.push_back(each_avg);
         temp.push_back(atom_Pos[i][2]);
         //cout << temp[0] << temp[1] << "\n\n";
         //each_f4[i][0] = (each_avg/My_neigh[i].size());
