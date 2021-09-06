@@ -536,11 +536,11 @@ int main(int argc, char* argv[])
 
             if(in_AF4 == 1)      //If F4 flag is provided, calculate F4.
             {
-                outFile_F5 << frameCounter << "\t| " << time << "\t|" << "Solvents : " << count_solvent/4 << "\n";
+                outFile_F5 << "#" <<  frameCounter << "\t| " << time << "\t|" << "Solvents : " << count_solvent/4 << "\n";
                 vector<vector<double>> F4_eac = calc_F4_all(count_solvent, count_solute, My_neigh, atom_Pos, boxX, boxY, boxZ, Nneigh, Natoms, topSolute, time, HBOND_DIST) ;
                 for (int it=0; it < F4_eac.size(); it++){
                     //cout << F4_eac[it][0] << "  " << F4_eac[it][1] << "\n\n";
-                    outFile_F5 << F4_eac[it][0] << "\t| " << F4_eac[it][1] << "\t|" << endl;
+                    outFile_F5 << F4_eac[it][0] << "\t" << F4_eac[it][1] << endl;
                 }
                 
                 //if(F4_value > 0) outFile_F4 << frameCounter << "\t| " << F4_value << "\t| " << time << endl;
