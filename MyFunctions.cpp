@@ -2066,14 +2066,14 @@ vector<vector<double>> calc_F4_all(int count_solvent, int count_solute, vector<v
             for (int j = 1 ; j < My_neigh[i].size() ; j++)      //Loop over all the neighbors of oxygen 'i'.
             {
 
-                currentPair.push_back(i);
-                currentPair.push_back(My_neigh[i][j]);
+                //currentPair.push_back(i);
+                //currentPair.push_back(My_neigh[i][j]);
                 
-                sort(currentPair.begin(), currentPair.end());   //Sort items in map.
+                //sort(currentPair.begin(), currentPair.end());   //Sort items in map.
               
-                if (!pairMap[currentPair])              //If the currentPair does not exist in the map, do the following(all calculations):
-                {
-                    pairMap[currentPair] = 1;
+                //if (!pairMap[currentPair])              //If the currentPair does not exist in the map, do the following(all calculations):
+                //{
+                 //   pairMap[currentPair] = 1;
                     
                     //Find the outermost hydrogen atoms in the two current water molecules.
                     
@@ -2234,9 +2234,9 @@ vector<vector<double>> calc_F4_all(int count_solvent, int count_solute, vector<v
                     ABC.clear();
                     BCD.clear();
                     sum = 0;
-                 }
-                else    pairMap[currentPair]++ ;        //If currentPair already exists in the map, increase the frequency.
-                currentPair.clear();                    
+                 //}
+                //else    pairMap[currentPair]++ ;        //If currentPair already exists in the map, increase the frequency.
+                //currentPair.clear();                    
             }
         }
         //cout << "each_avg= " << each_avg/My_neigh[i].size() << "\n\n";
