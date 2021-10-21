@@ -502,7 +502,7 @@ int main(int argc, char* argv[])
                 cage_512_count = remove_duplicates_map(cage_512_rings);
                 
                 //Write output gro file only if frameCounter is a multiple of DT. if -dt is not provided, every frame will be written.
-                //if(cage_512_count>0  && (frameCounter % DT == 0))print_vmd_cage64512_frings(cup512, cage_512_count, cage_512_rings, ring5, ring6, atom_Pos, time, rawFilename, box_size_xyz, solutes, methane_512, solute1, topSolute, solute2, count_solute2, frameCounter);
+                if(cage_512_count>0  && (frameCounter % DT == 0))print_vmd_cage64512_frings(cup512, cage_512_count, cage_512_rings, ring5, ring6, atom_Pos, time, rawFilename, box_size_xyz, solutes, methane_512, solute1, topSolute, solute2, count_solute2, frameCounter);
                 
             }
             
@@ -516,7 +516,7 @@ int main(int argc, char* argv[])
                 cage_62512_count = remove_duplicates_map(cage_62512_rings);
                 
                 //Write output gro file only if frameCounter is a multiple of DT. if -dt is not provided, every frame will be written.
-                //if(cage_62512_count>0 && (frameCounter % DT) == 0)print_vmd_cage64512_frings(cup62512, cage_62512_count, cage_62512_rings, ring5, ring6, atom_Pos, time, rawFilename, box_size_xyz, solutes, methane_62512, solute1, topSolute, solute2, count_solute2, frameCounter);
+                if(cage_62512_count>0 && (frameCounter % DT) == 0)print_vmd_cage64512_frings(cup62512, cage_62512_count, cage_62512_rings, ring5, ring6, atom_Pos, time, rawFilename, box_size_xyz, solutes, methane_62512, solute1, topSolute, solute2, count_solute2, frameCounter);
             }
             cout << "# 6²5¹²\tcage: " << cage_62512_count << "\n";
             /**********************************************/
@@ -550,9 +550,14 @@ int main(int argc, char* argv[])
            
              if(in_F4 == 1)      //If F4 flag is provided, calculate F4.
             {
-                F4_value = calc_F4(count_solvent, count_solute, My_neigh, atom_Pos, boxX, boxY, boxZ, Nneigh, Natoms, topSolute, time, HBOND_DIST) ;
-                
-                
+                //F4_value = calc_F4(count_solvent, count_solute, My_neigh, atom_Pos, boxX, boxY, boxZ, Nneigh, Natoms, topSolute, time, HBOND_DIST) ;
+                F4_value = 0.0;
+                vector<vector<double>> F4_eac = calc_F4_all(count_solvent, count_solute, My_neigh, atom_Pos, boxX, boxY, boxZ, Nneigh, Natoms, topSolute, time, HBOND_DIST) ;
+                for (int it=0; it < F4_eac.size(); it++){
+                    //cout << F4_eac[it][0] << "  " << F4_eac[it][1] << "\n\n";
+                    F4_value = F4_value + F4_eac[it][0];
+                }
+                F4_value = F4_value / F4_eac.size();
                 if(F4_value > 0) outFile_F4 << frameCounter << "\t| " << F4_value << "\t| " << time << endl;
                 else outFile_F4 << frameCounter << "\t|" << F4_value << "\t| " << time << endl;        //The if-else condition takes care of the extra space needed for "-" sign and alligns the output(lazy way!).
                 
